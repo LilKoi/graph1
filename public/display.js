@@ -9,7 +9,7 @@ buttonCreate.addEventListener('click', (e) => {
     label: document.getElementById('name-create').value,
     x: document.getElementById('x-create').value,
     y: document.getElementById('y-create').value,
-    id: arr.nodes.length + 1,
+    id: String(arr.nodes.length + 1),
     color: "rgb(90,90,90)",
     size: 100
   }
@@ -20,16 +20,21 @@ buttonCreate.addEventListener('click', (e) => {
 let edgeCreate = document.getElementById('edge-button').addEventListener('click',(e) => {
   e.preventDefault()
   let newEdge = {
-    sourse: document.getElementById('first-dodge').value,
+    source: document.getElementById('first-dodge').value,
     target: document.getElementById('second-dodge').value,
-    id: arr.edges.length + 1
+    id: String(arr.edges.length + 1)
   }
   arr.edges.push(newEdge)
   console.log(arr)
 })
 
 let graph = document.getElementById('create-graph').addEventListener('click', (e) => {
-  createGraph(JSON.stringify(arr))
+  // createGraph(JSON.stringify(arr))
+  const graph = new sigma({
+    graph: arr,
+    container: 'network-graph',
+    })
+    graph.refresh();
 })
 
 
