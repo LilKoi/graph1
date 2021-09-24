@@ -28,6 +28,7 @@ let edgeCreate = document.getElementById('edge-button').addEventListener('click'
   console.log(arr)
 })
 
+
 let buttonClear = document.getElementById("button-create").onclick = function(e) {
   document.getElementById("name-create").value = ""
   document.getElementById("x-create").value = ""
