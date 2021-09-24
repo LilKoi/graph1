@@ -17,3 +17,7 @@ form{
 input{
     margin: 5px 0;
 }
+
+.none{
+    display:none; 
+}
