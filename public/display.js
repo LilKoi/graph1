@@ -28,6 +28,13 @@ let edgeCreate = document.getElementById('edge-button').addEventListener('click'
   console.log(arr)
 })
 
+let buttonClear = document.getElementById("button-create").onclick = function(e) {
+  document.getElementById("name-create").value = ""
+  document.getElementById("x-create").value = ""
+  document.getElementById("y-create").value = ""
+}
+
+
 let graph = document.getElementById('create-graph').addEventListener('click', (e) => {
   // createGraph(JSON.stringify(arr))
   const graph = new sigma({
