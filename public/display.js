@@ -25,7 +25,7 @@ let list = document.getElementById("button-create").addEventListener("click", (e
     arr.nodes.forEach((element1) =>{
       if(element1.id == String(element)) {
         yes2 = true
-        node2 = element
+        node2 = element1
         console.log(element1)
       }
     })
