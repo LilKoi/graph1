@@ -8,9 +8,9 @@ let list = document.getElementById("button-create").addEventListener("click", (e
   let input = document.getElementById("input").value
   let exit = document.getElementById("exit").value.split(',')
   let yes = false
-  let node
+  let node;
   arr.nodes.forEach((element)=>{
-    if(element.id = String(input)) {
+    if(element.id == String(input)) {
       yes = true
       node = element
       console.log(yes)
@@ -21,15 +21,18 @@ let list = document.getElementById("button-create").addEventListener("click", (e
   }
   exit.forEach((element) => {
     let yes2 = false
+    let node2;
     arr.nodes.forEach((element1) =>{
       if(element1.id == String(element)) {
         yes2 = true
+        node2 = element
+        console.log(element1)
       }
     })
     if (!yes2) {
-      createNode(element)
+      node2 = createNode(element)
     }
-    createEdge(node.id, element)
+    createEdge(node.id, node2.id)
   })
   console.log(arr)
 })
