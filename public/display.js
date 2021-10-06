@@ -26,7 +26,6 @@ let list = document.getElementById("button-create").addEventListener("click", (e
       if(element1.id == String(element)) {
         yes2 = true
         node2 = element1
-        console.log(element1)
       }
     })
     if (!yes2) {
@@ -34,12 +33,11 @@ let list = document.getElementById("button-create").addEventListener("click", (e
     }
     createEdge(node.id, node2.id)
   })
-  console.log(arr)
 })
 
 function createNode(id) {
   let newNodes = {
-    label: "nodes",
+    label: String(id),
     x:  getRandomInRange(1, 25),
     y:  getRandomInRange(1, 25),
     id: String(id),
@@ -75,7 +73,28 @@ let graph = document.getElementById('create-graph').addEventListener('click', (e
 
 
 
+let matrix = document.getElementById("create-list").addEventListener("click", (e) => {
+  let listArray = [];
+  arr.nodes.forEach((e,index) => {
+    listArray[e.id] = new Array()
+    arr.nodes.forEach((e2,index2) => {
+          let have = false
+          listArray[e.id].push(check(e,e2))
+    })
+  })
+  console.log(arr)
+  console.log(listArray)
+})
 
+function check(e, e2) {
+  have2 = false
+  arr.edges.forEach((e3,index3) => {
+    if(((e3.source == e.id) & (e3.target == e2.id)) || ((e3.target == e.id) & (e3.source == e2.id)) & (e.id != e2.id)) {
+      have2 = true
+    }
+  })
+  return have2
+}
 
 
 
