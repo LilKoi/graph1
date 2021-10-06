@@ -2,78 +2,63 @@ var arr = {
   edges: [],
   nodes: []
 }
-let buttonCreate = document.getElementById('button-create');
-buttonCreate.addEventListener('click', (e) => {
-  e.preventDefault()
-  let label = document.getElementById('name-create');
-  let x = document.getElementById('x-create');
-  let y = document.getElementById('y-create')
-  let newdot = {
-    label: document.getElementById('name-create').value,
-    x: document.getElementById('x-create').value,
-    y: document.getElementById('y-create').value,
-    id: String(arr.nodes.length + 1),
-    color: "rgb(90,90,90)",
-    size: 100
-  }
-  label.value = ""
-  x.value = ""
-  y.value = ""
 
-  arr.nodes.push(newdot)
+let list = document.getElementById("button-create").addEventListener("click", (e) => {
+  e.preventDefault()
+  let input = document.getElementById("input").value
+  let exit = document.getElementById("exit").value.split(',')
+  let yes = false
+  let node
+  arr.nodes.forEach((element)=>{
+    if(element.id = String(input)) {
+      yes = true
+      node = element
+      console.log(yes)
+    }
+  })
+  if(!yes) {
+    node = createNode(input)
+  }
+  exit.forEach((element) => {
+    let yes2 = false
+    arr.nodes.forEach((element1) =>{
+      if(element1.id == String(element)) {
+        yes2 = true
+      }
+    })
+    if (!yes2) {
+      createNode(element)
+    }
+    createEdge(node.id, element)
+  })
   console.log(arr)
 })
 
-let edgeCreate = document.getElementById('edge-button').addEventListener('click',(e) => {
-  e.preventDefault()
-  let true1 = null
-  let true2 = null
-  let source = document.getElementById('first-dodge');
-  let target = document.getElementById('second-dodge');
-  arr.nodes.forEach(element => {
-    if (element.id == String(source.value)) {
-      true1 = true
-    }
-    if (element.id == String(target.value)) {
-      true2 = true
-    }
-  });
-
-  if (true1 && true2) {
-    console.log(true1)
-    console.log(true2)
-    let newEdge = {
-      source: document.getElementById('first-dodge').value,
-      target: document.getElementById('second-dodge').value,
-      id: String(arr.edges.length + 1)
-    }
-  
-    source.value = ""
-    target.value = ""
-    
-    arr.edges.push(newEdge)
-    console.log(arr)
+function createNode(id) {
+  let newNodes = {
+    label: "nodes",
+    x:  getRandomInRange(1, 25),
+    y:  getRandomInRange(1, 25),
+    id: String(id),
+    color: "rgb(90,90,90)",
+    size: 100
   }
-  if (true1 === null) {
-      alert('id первой точки не существует')
+  arr.nodes.push(newNodes)
+  return newNodes
+}
+
+function createEdge(id1, id2) {
+  newEdge = {
+    source: String(id1),
+    target: String(id2),
+    id: String(arr.edges.length + 1)
   }
-  if (true2 === null) {
-    alert('id второй точки не существует')
-  }
+  arr.edges.push(newEdge)
+}
 
-  
-})
-
-
-
-
-// let buttonClear = document.getElementById("button-create").onclick = function(e) {
-//   document.getElementById("name-create").value = ""
-//   document.getElementById("x-create").value = ""
-//   document.getElementById("y-create").value = ""
-// }
-
-
+function getRandomInRange(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 let graph = document.getElementById('create-graph').addEventListener('click', (e) => {
   // createGraph(JSON.stringify(arr))
