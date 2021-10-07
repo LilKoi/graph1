@@ -1,7 +1,8 @@
-import { createNod } from './createnode.js'
-import { createEd } from './createedge.js'
-import { rand } from './random.js'
-import { ch } from './check.js'
+import { createNode } from './createNode.js'
+import { createEdge } from './createEdge.js'
+import { getRandomInRange } from './random.js'
+import { check } from './check.js'
+import {  } from './up.js'
 
 
 

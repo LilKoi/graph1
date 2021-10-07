@@ -1,4 +1,5 @@
-exports.createNod = function createNode(id) {
+import { getRandomInRange } from './random.js'
+function createNode(id) {
     let newNodes = {
       label: String(id),
       x:  getRandomInRange(1, 25),
@@ -10,3 +11,5 @@ exports.createNod = function createNode(id) {
     arr.nodes.push(newNodes)
     return newNodes
   }
+
+  export { createNode } 

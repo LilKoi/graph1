@@ -1,4 +1,4 @@
-exports.createEd = function createEdge(id1, id2) {
+function createEdge(id1, id2) {
     newEdge = {
       source: String(id1),
       target: String(id2),
@@ -6,3 +6,5 @@ exports.createEd = function createEdge(id1, id2) {
     }
     arr.edges.push(newEdge)
   }
+
+export { createEdge }

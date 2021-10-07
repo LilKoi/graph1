@@ -1,4 +1,4 @@
-exports.up = function updateArr(type, obj) {
+function updateArr(type, obj) {
     let arr = {
     edges: [],
     nodes: []
@@ -10,3 +10,5 @@ exports.up = function updateArr(type, obj) {
     arr.nodes.push(obj)
     }
     }
+
+    export { updateArr }
