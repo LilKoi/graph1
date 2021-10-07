@@ -8,8 +8,9 @@ export default {
             this.state.edges.push(obj)
         }
         if (type == "nodes") {
-            this.state.push(obj)
+            this.state.nodes.push(obj)
         }
+        console.log(this.state)
     },
     returnArr() {
         return this.state
