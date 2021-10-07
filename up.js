@@ -1,14 +1,14 @@
-function updateArr(type, obj) {
-    let arr = {
-    edges: [],
-    nodes: []
+export default {
+    state: {
+        edges: [],
+        nodes: []
+    },
+    updateArr(type, obj) {
+        if (type == 'edges') {
+            this.state.edges.push(obj)
+        }
+        if (type == "nodes") {
+            this.state.push(obj)
+        }
     }
-    if (type == 'edges') {
-    arr.edges.push(obj)
-    }
-    if (type == "nodes") {
-    arr.nodes.push(obj)
-    }
-    }
-
-    export { updateArr }
+}
