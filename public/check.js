@@ -7,5 +7,4 @@ function check(e, e2) {
     })
     return have2
   }
-
-  export { check }
+  export {check as default};

@@ -10,5 +10,8 @@ export default {
         if (type == "nodes") {
             this.state.push(obj)
         }
+    },
+    returnArr() {
+        return this.state
     }
 }

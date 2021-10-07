@@ -1,8 +1,10 @@
-import { createNode } from './createNode.js'
-import { createEdge } from './createEdge.js'
-import { getRandomInRange } from './random.js'
-import { check } from './check.js'
-import {  } from './up.js'
+import createNode from './createNode.js'
+import createEdge from './createEdge.js'
+import getRandomInRange from './random.js'
+import check from './check.js'
+import updateArr from './up.js'
+import returnArr from './up.js'
+
 
 
 

@@ -1,4 +1,4 @@
-import { getRandomInRange } from './random.js'
+import getRandomInRange from './random.js'
 function createNode(id) {
     let newNodes = {
       label: String(id),
@@ -12,4 +12,4 @@ function createNode(id) {
     return newNodes
   }
 
-  export { createNode } 
+  export {getRandomInRange as default};
