@@ -1,5 +1,22 @@
 {
   "dependencies": {
     "express": "^4.17.1"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "graph1",
+  "description": "1. Загрузить node.js с офф сайта\r 2. проверить, стоит ли пакетный менеджер npm -v в node commands, если на экране показалсь версия, значит npm уже установлен, иначе сделать пункт 2.1\r 2.1 npm install npm@latest -g\r 3. прописать в корне проекта npm i\r 4. запуск сервера коммандой node server.js\r 5. ???\r 6. PROFIT",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LilKoi/graph1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LilKoi/graph1/issues"
+  },
+  "homepage": "https://github.com/LilKoi/graph1#readme"
 }

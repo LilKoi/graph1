@@ -1,3 +1,10 @@
+import { createNod } from './createnode.js'
+import { createEd } from './createedge.js'
+import { rand } from './random.js'
+import { ch } from './check.js'
+
+
+
 var arr = {
   edges: [],
   nodes: []
@@ -35,31 +42,32 @@ let list = document.getElementById("button-create").addEventListener("click", (e
   })
 })
 
-function createNode(id) {
-  let newNodes = {
-    label: String(id),
-    x:  getRandomInRange(1, 25),
-    y:  getRandomInRange(1, 25),
-    id: String(id),
-    color: "rgb(90,90,90)",
-    size: 100
-  }
-  arr.nodes.push(newNodes)
-  return newNodes
-}
 
-function createEdge(id1, id2) {
-  newEdge = {
-    source: String(id1),
-    target: String(id2),
-    id: String(arr.edges.length + 1)
-  }
-  arr.edges.push(newEdge)
-}
+// function createNode(id) {
+//   let newNodes = {
+//     label: String(id),
+//     x:  getRandomInRange(1, 25),
+//     y:  getRandomInRange(1, 25),
+//     id: String(id),
+//     color: "rgb(90,90,90)",
+//     size: 100
+//   }
+//   arr.nodes.push(newNodes)
+//   return newNodes
+// }
 
-function getRandomInRange(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+// function createEdge(id1, id2) {
+//   newEdge = {
+//     source: String(id1),
+//     target: String(id2),
+//     id: String(arr.edges.length + 1)
+//   }
+//   arr.edges.push(newEdge)
+// }
+
+// function getRandomInRange(min, max) {
+//   return Math.floor(Math.random() * (max - min + 1)) + min;
+// }
 
 let graph = document.getElementById('create-graph').addEventListener('click', (e) => {
   // createGraph(JSON.stringify(arr))
@@ -86,15 +94,15 @@ let matrix = document.getElementById("create-list").addEventListener("click", (e
   console.log(listArray)
 })
 
-function check(e, e2) {
-  have2 = false
-  arr.edges.forEach((e3,index3) => {
-    if(((e3.source == e.id) & (e3.target == e2.id)) || ((e3.target == e.id) & (e3.source == e2.id)) & (e.id != e2.id)) {
-      have2 = true
-    }
-  })
-  return have2
-}
+// function check(e, e2) {
+//   have2 = false
+//   arr.edges.forEach((e3,index3) => {
+//     if(((e3.source == e.id) & (e3.target == e2.id)) || ((e3.target == e.id) & (e3.source == e2.id)) & (e.id != e2.id)) {
+//       have2 = true
+//     }
+//   })
+//   return have2
+// }
 
 
 

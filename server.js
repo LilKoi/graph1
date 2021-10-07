@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 8000
+const port = 80
 const fs = require("fs");
 app.get('/', (req, res) => {
     app.use('/data', express.static('data'))
