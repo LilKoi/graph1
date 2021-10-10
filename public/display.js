@@ -58,4 +58,5 @@ let matrix = document.getElementById("create-list").addEventListener("click", (e
           listArray[e.id].push(check(e,e2))
     })
   })
+  console.log(listArray)
 })
