@@ -21,3 +21,21 @@ input{
 .none{
     display:none; 
 }
+
+.flex {
+    display: flex;
+}
+
+.flex input {
+    margin: 5px;
+    width: 30px;
+}
+
+.form-cetka {
+    display: flex;
+    align-items: center;
+}
+
+.cetka {
+    margin-left: 30px;
+}
