@@ -2,7 +2,7 @@ import createNode from './createNode.js'
 import createEdge from './createEdge.js'
 import getRandomInRange from './random.js'
 import check from './check.js'
-import up from './up.js'
+import up from './state.js'
 
 let list = document.getElementById("button-create").addEventListener("click", (e) => {
   e.preventDefault()

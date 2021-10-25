@@ -1,5 +1,5 @@
 import getRandomInRange from './random.js'
-import up from './up.js'
+import up from './state.js'
 
 export default function createNode(id){
   let newNodes = {

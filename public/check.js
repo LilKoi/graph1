@@ -1,4 +1,4 @@
-import up from "./up.js"
+import up from "./state.js"
   export default function check(e, e2){
     let have2 = false
     up.returnArr().edges.forEach((e3,index3) => {
