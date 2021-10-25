@@ -84,3 +84,21 @@ let generateCetka = document.getElementById("createCetka").addEventListener("cli
     }
   }
 })
+
+  let generateSpisok = document.getElementById("createSpisok").addEventListener ("click", (e) => {
+    e.preventDefault();
+    let arraySetka = []
+    let setka = document.getElementById("cetka")
+    for (let i = 0; i < setka.querySelectorAll("div").length; i++) {
+    for (let j = 0; j < setka.querySelectorAll("div")[i]; j++) {
+      arraySetka[i][j].push(setka.querySelectorAll("div")[i].querySelectorAll('input')[j].value)
+    }
+    console.log(arraySetka) 
+    }
+
+      
+
+
+    
+
+  })
