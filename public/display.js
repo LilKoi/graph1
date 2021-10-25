@@ -60,3 +60,27 @@ let matrix = document.getElementById("create-list").addEventListener("click", (e
   })
   console.log(listArray)
 })
+
+let generateCetka = document.getElementById("createCetka").addEventListener("click", (e)=> {
+  e.preventDefault();
+  let x = document.getElementById("x").value
+  let y = document.getElementById("y").value
+  let cetka = document.getElementById("cetka");
+  for (let i=0;i<y;i++) {
+    let newDiv = document.createElement("div")
+    newDiv.id = `y-${i}`
+    newDiv.className += "flex"
+    cetka.appendChild(newDiv)
+  }
+  console.log(cetka)
+  for (let i=0;i<y;i++) {
+    let newx = cetka.querySelector(`#y-${i}`)
+    console.log(newx)
+    for (let j=0;j<x;j++) {
+      let newDiv = document.createElement("input")
+      newDiv.id = `y-${i}`
+      newDiv.id = `x-${j}`
+      newx.appendChild(newDiv)
+    }
+  }
+})
