@@ -87,18 +87,16 @@ let generateCetka = document.getElementById("createCetka").addEventListener("cli
 
   let generateSpisok = document.getElementById("createSpisok").addEventListener ("click", (e) => {
     e.preventDefault();
-    let arraySetka = []
     let setka = document.getElementById("cetka")
+    let arraySetka = new Array(setka.querySelectorAll("div").length)
     for (let i = 0; i < setka.querySelectorAll("div").length; i++) {
-    for (let j = 0; j < setka.querySelectorAll("div")[i]; j++) {
-      arraySetka[i][j].push(setka.querySelectorAll("div")[i].querySelectorAll('input')[j].value)
+      arraySetka[i] = new Array(setka.querySelectorAll("div")[i].querySelectorAll("input").length);
+      for (let j = 0; j < setka.querySelectorAll("div")[i].querySelectorAll("input").length; j++) {
+      arraySetka[i][j] = setka.querySelectorAll("div")[i].querySelectorAll('input')[j].value
     }
-    console.log(arraySetka) 
     }
-
-      
-
-
-    
-
+    arraySetka[0].forEach((e,index) =>{
+      createNode(index)
+    })
+    console.log(up.returnArr())
   })
