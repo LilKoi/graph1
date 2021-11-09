@@ -14,7 +14,7 @@ let list = document.getElementById("button-create").addEventListener("click", (e
     if(element.id == String(input)) {
       yes = true
       node = element
-      console.log(yes)
+      // console.log(yes)
     }
   })
   if(!yes) {
@@ -58,7 +58,7 @@ let matrix = document.getElementById("create-list").addEventListener("click", (e
           listArray[e.id].push(check(e,e2))
     })
   })
-  console.log(listArray)
+  // console.log(listArray)
 })
 
 let generateCetka = document.getElementById("createCetka").addEventListener("click", (e)=> {
@@ -72,10 +72,10 @@ let generateCetka = document.getElementById("createCetka").addEventListener("cli
     newDiv.className += "flex"
     cetka.appendChild(newDiv)
   }
-  console.log(cetka)
+  // console.log(cetka)
   for (let i=0;i<y;i++) {
     let newx = cetka.querySelector(`#y-${i}`)
-    console.log(newx)
+    // console.log(newx)
     for (let j=0;j<x;j++) {
       let newDiv = document.createElement("input")
       newDiv.id = `y-${i}`
@@ -85,18 +85,39 @@ let generateCetka = document.getElementById("createCetka").addEventListener("cli
   }
 })
 
-  let generateSpisok = document.getElementById("createSpisok").addEventListener ("click", (e) => {
-    e.preventDefault();
-    let setka = document.getElementById("cetka")
-    let arraySetka = new Array(setka.querySelectorAll("div").length)
-    for (let i = 0; i < setka.querySelectorAll("div").length; i++) {
-      arraySetka[i] = new Array(setka.querySelectorAll("div")[i].querySelectorAll("input").length);
-      for (let j = 0; j < setka.querySelectorAll("div")[i].querySelectorAll("input").length; j++) {
-      arraySetka[i][j] = setka.querySelectorAll("div")[i].querySelectorAll('input')[j].value
+let generateSpisok = document.getElementById("createSpisok").addEventListener ("click", (e) => {
+  e.preventDefault();
+  // let setka = document.getElementById("cetka")
+  // let arraySetka = new Array(setka.querySelectorAll("div").length)
+  // for (let i = 0; i < setka.querySelectorAll("div").length; i++) {
+  //   arraySetka[i] = new Array(setka.querySelectorAll("div")[i].querySelectorAll("input").length);
+  //   for (let j = 0; j < setka.querySelectorAll("div")[i].querySelectorAll("input").length; j++) {
+  //   arraySetka[i][j] = setka.querySelectorAll("div")[i].querySelectorAll('input')[j].value
+  //   }
+  // }
+  let arraySetka = setka.pullArray()
+  let list = [];
+  for(let i =0; i < arraySetka.length;i++) {
+    list[i] = []
+    for(let j =0; j< arraySetka.length;j++) {
+      list[i].push(-1)
     }
+  }
+  
+  for(let i =0; i < arraySetka.length;i++) {
+    for(let j =0; j< arraySetka.length;j++) {
+      if (arraySetka[i][j] == 1) {
+        list[i][j] = j;
+      }
     }
-    arraySetka[0].forEach((e,index) =>{
-      createNode(index)
-    })
-    console.log(up.returnArr())
-  })
+  }
+
+  for(let i =0; i < arraySetka.length;i++) {
+    console.log(`Для вершины ${i+1}:`)
+    for(let j =0; j< arraySetka.length;j++) {
+      if(list[i][j] != -1) {
+        console.log(list[i][j] + 1)
+      }
+    }
+  }
+})
