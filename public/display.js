@@ -2,7 +2,8 @@ import createNode from './createNode.js'
 import createEdge from './createEdge.js'
 import getRandomInRange from './random.js'
 import check from './check.js'
-import up from './state.js'
+import state from './state.js'
+
 
 let list = document.getElementById("button-create").addEventListener("click", (e) => {
   e.preventDefault()
@@ -10,7 +11,7 @@ let list = document.getElementById("button-create").addEventListener("click", (e
   let exit = document.getElementById("exit").value.split(',')
   let yes = false
   let node;
-  up.returnArr().nodes.forEach((element)=>{
+  state.returnArr().nodes.forEach((element)=>{
     if(element.id == String(input)) {
       yes = true
       node = element
@@ -23,7 +24,7 @@ let list = document.getElementById("button-create").addEventListener("click", (e
   exit.forEach((element) => {
     let yes2 = false
     let node2;
-    up.returnArr().nodes.forEach((element1) =>{
+    state.returnArr().nodes.forEach((element1) =>{
       if(element1.id == String(element)) {
         yes2 = true
         node2 = element1
@@ -40,7 +41,7 @@ let list = document.getElementById("button-create").addEventListener("click", (e
 let graph = document.getElementById('create-graph').addEventListener('click', (e) => {
   // createGraph(JSON.stringify(arr))
   const graph = new sigma({
-    graph: up.returnArr(),
+    graph: state.returnArr(),
     container: 'network-graph',
     })
     graph.refresh();
@@ -51,9 +52,9 @@ let graph = document.getElementById('create-graph').addEventListener('click', (e
 
 let matrix = document.getElementById("create-list").addEventListener("click", (e) => {
   let listArray = [];
-  up.returnArr().nodes.forEach((e,index) => {
+  state.returnArr().nodes.forEach((e,index) => {
     listArray[e.id] = new Array()
-    up.returnArr().nodes.forEach((e2,index2) => {
+    state.returnArr().nodes.forEach((e2,index2) => {
           let have = false
           listArray[e.id].push(check(e,e2))
     })
@@ -86,16 +87,9 @@ let generateCetka = document.getElementById("createCetka").addEventListener("cli
 })
 
 let generateSpisok = document.getElementById("createSpisok").addEventListener ("click", (e) => {
-  e.preventDefault();
-  // let setka = document.getElementById("cetka")
-  // let arraySetka = new Array(setka.querySelectorAll("div").length)
-  // for (let i = 0; i < setka.querySelectorAll("div").length; i++) {
-  //   arraySetka[i] = new Array(setka.querySelectorAll("div")[i].querySelectorAll("input").length);
-  //   for (let j = 0; j < setka.querySelectorAll("div")[i].querySelectorAll("input").length; j++) {
-  //   arraySetka[i][j] = setka.querySelectorAll("div")[i].querySelectorAll('input')[j].value
-  //   }
-  // }
-  let arraySetka = setka.pullArray()
+  e.preventDefault();  
+
+  let arraySetka = state.pullSetka()
   let list = [];
   for(let i =0; i < arraySetka.length;i++) {
     list[i] = []

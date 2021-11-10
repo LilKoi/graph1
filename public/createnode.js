@@ -1,5 +1,5 @@
 import getRandomInRange from './random.js'
-import up from './state.js'
+import state from './state.js'
 
 export default function createNode(id){
   let newNodes = {
@@ -10,6 +10,6 @@ export default function createNode(id){
     color: "rgb(90,90,90)",
     size: 100
   }
-  up.updateArr('nodes', newNodes)
+  state.updateArr('nodes', newNodes)
   return newNodes
 }
