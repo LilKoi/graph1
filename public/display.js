@@ -3,7 +3,7 @@ import createEdge from './createEdge.js'
 import getRandomInRange from './random.js'
 import check from './check.js'
 import state from './state.js'
-
+import diagramMatrix from "./diagramMatrix.js"
 
 let list = document.getElementById("button-create").addEventListener("click", (e) => {
   e.preventDefault()
@@ -115,3 +115,68 @@ let generateSpisok = document.getElementById("createSpisok").addEventListener ("
     }
   }
 })
+
+let createMatrixIncidency = document.getElementById("createMatrixIncidency").addEventListener("click", (e) => {
+  e.preventDefault()
+  let arr = state.pullSetka()
+  let array = [];
+  for(let i = 0;i<arr.length;i++) {
+    for(let j = 0;j<arr.length;j++) {
+      if(arr[i][j] > 0) {
+        let tmp = new Array(arr.length);
+        tmp[i] = tmp[j] = 1;
+        array.push(tmp)
+      }
+    }
+  }
+
+  for(let i = 0;i<array.length;i++) {
+    for(let j = i + 1;j<array.length;j++) {
+      if(array[i] == array[j]) {
+        array.splice(j,1)
+      }
+    }
+  }
+
+  let array1 = new Array(array.length)
+  for(let i = 0;i<array.length;i++) {
+    for(let j = 0;j<array.length;j++) {
+      if(typeof array[i][j] == "undefined") {
+        array[i][j] = 0;
+      }
+    }
+  }
+  console.log(array)
+  console.log(array.length)
+  for(let i = 0; i <array.length;i++) {
+    array1[i] = new Array(array.length)
+    for(let j = 0;array.length;j++) {
+      array1[i][j] = array[j][i]
+    }
+  }
+  console.log(array1)
+})
+
+let diagram = document.getElementById("createDiagMatrix").addEventListener("click",(e)=> {
+  e.preventDefault()
+  console.log(diagramMatrix())
+})
+
+let laplas = document.getElementById("createMatrixLaplas").addEventListener("click", (e) => {
+  e.preventDefault()
+  let diagonal = diagramMatrix()
+  let cmej = state.pullSetka()
+  let array = []
+  for(let i=0;i<diagonal.length;i++) {
+    array[i] = []
+    for(let j=0;j<diagonal.length;j++) {
+      array[i].push(0)
+    }
+  }
+  for(let i=0;i<diagonal.length;i++) {
+    for(let j=0;j<diagonal.length;j++) {
+      array[i][j] = diagonal[i][j] - cmej[i][j];
+    }
+  }
+  console.log(array)
+}) 
