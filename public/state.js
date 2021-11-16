@@ -10,7 +10,6 @@
         if (type == "nodes") {
             this.state.nodes.push(obj)
         }
-        console.log(this.state)
     },
     returnArr() {
         return this.state

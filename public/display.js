@@ -180,3 +180,109 @@ let laplas = document.getElementById("createMatrixLaplas").addEventListener("cli
   }
   console.log(array)
 }) 
+
+let dirac = document.getElementById("dirac").addEventListener("click", (e) => {
+  e.preventDefault()
+  let cmej = state.pullSetka()
+  let count = new Array(cmej.length).fill(0)
+  cmej.forEach((e) => {
+    e.forEach((e2, index) => {
+      if (e2 == 1) {
+        count[index]++
+      }
+    })
+  })
+  let isDirac = true;
+  count.forEach((e)=> {
+    if(e < cmej.length) {
+      isDirac = false;
+    }
+  })
+  console.log(isDirac)
+})
+
+let Ore = document.getElementById("ore").addEventListener("click", (e) => {
+  e.preventDefault()
+  let cmej = state.pullSetka()
+  let count = new Array(cmej.length).fill(0)
+  cmej.forEach((e,index) => {
+    e.forEach((e2, index2) => {
+      if ((e2 == 0) & (index != index2)) {
+        count[index2]++
+      }
+    })
+  })
+  let isOre = true
+  cmej.forEach((e,index) => {
+    e.forEach((e2, index2) => {
+      if ((e2 == 0) & (index != index2)) {
+        if(count[index] + count[index2] <cmej.length) {
+          isOre = false
+        }
+      }
+    })
+  })
+  
+})
+
+let Posha = document.getElementById("posha").addEventListener("click", (e) => {
+  e.preventDefault()
+  let cmej = state.pullSetka()
+  let isPoshe = false
+  for (let x=1;x< (cmej.length - 1) / 2;x++) {
+    let fx = 0
+    for(let i=0;i<n;i++) {
+      if(arr[i] <= x) {
+        fx++
+      }
+    }
+    if(fx < x ) {
+      isPoshe = true
+    }
+  }
+  console.log(isPoshe)
+})
+
+let isEller = document.getElementById("isEller").addEventListener("click", (e) => {
+  e.preventDefault()
+  let cmej = state.pullSetka()
+  let count = new Array(cmej.length).fill(0)
+  cmej.forEach((e,index) => {
+    e.forEach((e2, index2) => {
+      if (e2 == 1) {
+        count[index2]++
+      }
+    })
+  })
+  let isEller = true;
+  count.forEach((e) => {
+    if (e % 2 != 0) {
+      isEller = false;
+    }
+  })
+  console.log(isEller)
+})
+
+let Metric = document.getElementById("Metric").addEventListener("click", (e) => {
+  e.preventDefault()
+  let cmej = state.pullSetka()
+  let count = new Array(cmej.length).fill(0)
+  cmej.forEach((e,index) => {
+    e.forEach((e2, index2) => {
+      let dead = [];
+      console.log(`для точки-${index}`)
+      next(e2,dead)
+    })
+  })
+  function next(element,dead) {
+    cmej.forEach((e,index) => {
+      e.forEach((e2, index2) => {
+        if((e2 == 1) & (!dead.includes(index2))) {
+          dead.push(index2)
+          next(e2,dead)
+        }
+      })
+    })
+    console.log(2)
+  }
+})
