@@ -5,6 +5,8 @@ import check from './check.js'
 import state from './state.js'
 import diagramMatrix from "./diagramMatrix.js"
 
+console.log("lox ti")
+
 let list = document.getElementById("button-create").addEventListener("click", (e) => {
   e.preventDefault()
   let input = document.getElementById("input").value
