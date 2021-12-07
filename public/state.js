@@ -24,6 +24,13 @@
             }
         }
         return arraySetka
+    },
+    updateStatusReady(id,status) {
+        this.returnArr.nodes.find((e) => {
+            if(e.id == id) {
+                e.status = status
+            }
+        })
     }
   }
 

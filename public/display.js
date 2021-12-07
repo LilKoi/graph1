@@ -4,11 +4,12 @@ import getRandomInRange from './random.js'
 import check from './check.js'
 import state from './state.js'
 import diagramMatrix from "./diagramMatrix.js"
-
+import depthModule from "./depth.js"
 let list = document.getElementById("button-create").addEventListener("click", (e) => {
   e.preventDefault()
-  let input = document.getElementById("input").value
-  let exit = document.getElementById("exit").value.split(',')
+  let string = document.getElementById("input").value
+  let input = string.split(';')[0]
+  let exit = string.split(';')[1].split(',')
   let yes = false
   let node;
   state.returnArr().nodes.forEach((element)=>{
@@ -39,9 +40,14 @@ let list = document.getElementById("button-create").addEventListener("click", (e
 
 
 let graph = document.getElementById('create-graph').addEventListener('click', (e) => {
-  // createGraph(JSON.stringify(arr))
+  let stateArr = state.returnArr()
+  console.log(stateArr)
+  stateArr.nodes.forEach((e) => {
+    delete e.used
+  })
+  console.log(stateArr)
   const graph = new sigma({
-    graph: state.returnArr(),
+    graph: stateArr,
     container: 'network-graph',
     })
     graph.refresh();
@@ -88,7 +94,10 @@ let generateCetka = document.getElementById("createCetka").addEventListener("cli
 
 let generateSpisok = document.getElementById("createSpisok").addEventListener ("click", (e) => {
   e.preventDefault();  
-
+  generateSpisokFunc()
+  
+})
+function generateSpisokFunc() {
   let arraySetka = state.pullSetka()
   let list = [];
   for(let i =0; i < arraySetka.length;i++) {
@@ -107,14 +116,15 @@ let generateSpisok = document.getElementById("createSpisok").addEventListener ("
   }
 
   for(let i =0; i < arraySetka.length;i++) {
-    console.log(`Для вершины ${i+1}:`)
+    // console.log(`Для вершины ${i+1}:`) потом включить, мне надоело лишнее 
     for(let j =0; j< arraySetka.length;j++) {
       if(list[i][j] != -1) {
-        console.log(list[i][j] + 1)
+        // console.log(list[i][j] + 1) потом включить, мне надоело лишнее 
       }
     }
   }
-})
+  return list;
+}
 
 let createMatrixIncidency = document.getElementById("createMatrixIncidency").addEventListener("click", (e) => {
   e.preventDefault()
@@ -285,4 +295,30 @@ let Metric = document.getElementById("Metric").addEventListener("click", (e) => 
     })
     console.log(2)
   }
+})
+
+let depth = document.getElementById("depth").addEventListener("click", (e) => {
+  e.preventDefault();
+  let list = generateSpisokFunc()
+  for(let i=0;i<list.length;i++) {
+    createNode(i+1)
+  }
+  for(let i=0;i<list.length;i++) {
+    for(let j=0;j<list.length;j++) {
+      if(list[i][j] != -1) {
+        let have = false
+        state.returnArr().edges.forEach((element) => {
+          if(((element.source == i+1) & (element.target == j+1))||((element.source == j+1) & (element.target == i+1))) {
+          have = true
+          }
+        })
+        if (!have) {
+          createEdge(i+1,j+1)  
+        }
+      }
+    }
+  }
+
+  depthModule.next(state.returnArr().nodes[0].id,`rgb(${getRandomInRange(0,255)},${getRandomInRange(0,255)},${getRandomInRange(0,255)})`)
+  console.log(state.returnArr())
 })

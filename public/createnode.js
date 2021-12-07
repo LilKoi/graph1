@@ -8,7 +8,8 @@ export default function createNode(id){
     y:  getRandomInRange(1, 25),
     id: String(id),
     color: "rgb(90,90,90)",
-    size: 100
+    size: 100,
+    used:true
   }
   state.updateArr('nodes', newNodes)
   return newNodes
