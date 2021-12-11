@@ -5,6 +5,8 @@ import check from './check.js'
 import state from './state.js'
 import diagramMatrix from "./diagramMatrix.js"
 import depthModule from "./depth.js"
+import widthModule from "./width.js"
+
 let list = document.getElementById("button-create").addEventListener("click", (e) => {
   e.preventDefault()
   let string = document.getElementById("input").value
@@ -94,37 +96,10 @@ let generateCetka = document.getElementById("createCetka").addEventListener("cli
 
 let generateSpisok = document.getElementById("createSpisok").addEventListener ("click", (e) => {
   e.preventDefault();  
-  generateSpisokFunc()
+  state.generateSpisokFunc()
   
 })
-function generateSpisokFunc() {
-  let arraySetka = state.pullSetka()
-  let list = [];
-  for(let i =0; i < arraySetka.length;i++) {
-    list[i] = []
-    for(let j =0; j< arraySetka.length;j++) {
-      list[i].push(-1)
-    }
-  }
-  
-  for(let i =0; i < arraySetka.length;i++) {
-    for(let j =0; j< arraySetka.length;j++) {
-      if (arraySetka[i][j] == 1) {
-        list[i][j] = j;
-      }
-    }
-  }
 
-  for(let i =0; i < arraySetka.length;i++) {
-    // console.log(`Для вершины ${i+1}:`) потом включить, мне надоело лишнее 
-    for(let j =0; j< arraySetka.length;j++) {
-      if(list[i][j] != -1) {
-        // console.log(list[i][j] + 1) потом включить, мне надоело лишнее 
-      }
-    }
-  }
-  return list;
-}
 
 let createMatrixIncidency = document.getElementById("createMatrixIncidency").addEventListener("click", (e) => {
   e.preventDefault()
@@ -299,26 +274,15 @@ let Metric = document.getElementById("Metric").addEventListener("click", (e) => 
 
 let depth = document.getElementById("depth").addEventListener("click", (e) => {
   e.preventDefault();
-  let list = generateSpisokFunc()
-  for(let i=0;i<list.length;i++) {
-    createNode(i+1)
-  }
-  for(let i=0;i<list.length;i++) {
-    for(let j=0;j<list.length;j++) {
-      if(list[i][j] != -1) {
-        let have = false
-        state.returnArr().edges.forEach((element) => {
-          if(((element.source == i+1) & (element.target == j+1))||((element.source == j+1) & (element.target == i+1))) {
-          have = true
-          }
-        })
-        if (!have) {
-          createEdge(i+1,j+1)  
-        }
-      }
-    }
-  }
+  state.generateStateArray()
 
   depthModule.next(state.returnArr().nodes[0].id,`rgb(${getRandomInRange(0,255)},${getRandomInRange(0,255)},${getRandomInRange(0,255)})`)
+  console.log(state.returnArr())
+})
+
+let width = document.getElementById("width").addEventListener("click",(e) => {
+  e.preventDefault()
+  state.generateStateArray()
+  widthModule.start('1')
   console.log(state.returnArr())
 })

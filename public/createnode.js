@@ -9,7 +9,8 @@ export default function createNode(id){
     id: String(id),
     color: "rgb(90,90,90)",
     size: 100,
-    used:true
+    used:true,
+    number:null
   }
   state.updateArr('nodes', newNodes)
   return newNodes
