@@ -339,6 +339,7 @@ let prima = document.getElementById('prima').addEventListener("click", (e) => {
       }
     }
   }
+})
 let dostizhimost = document.getElementById("dostizhimost").addEventListener("click", (e) => {
   e.preventDefault();
   let cmej = state.pullSetka()
