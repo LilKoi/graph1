@@ -83,6 +83,39 @@ import createEdge from './createEdge.js'
           }
         }
         return list;
+      },
+      generateArrayInScales()
+      {
+        let arraySetka = this.pullSetka()
+        for(let i=0;i<arraySetka.length;i++) {
+            createNode(i+1)
+        }
+
+        for(let i=0;i<arraySetka.length;i++) {
+            for(let j=0;j< arraySetka.length;j++) {
+
+            }
+        }
+
+        for(let i=0;i<arraySetka.length;i++) {
+            for(let j=0;j<arraySetka.length;j++) {
+              if(arraySetka[i][j] != '') {
+                let have = false
+                this.returnArr().edges.forEach((element) => {
+                  if(((element.source == i+1) && (element.target == j+1)) || ((element.source == j+1) && (element.target == i+1))) {
+                  have = true
+                  }
+                })
+                if (!have) {
+                  createEdge(i+1,j+1, arraySetka[i][j])  
+                }
+              }
+            }
+          }
+          
+      },
+      updateEdges(array) {
+          this.state.edges = array 
       }
   }
 
