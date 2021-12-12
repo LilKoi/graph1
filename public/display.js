@@ -99,9 +99,8 @@ let generateCetka = document.getElementById("createCetka").addEventListener("cli
 })
 
 let generateSpisok = document.getElementById("createSpisok").addEventListener ("click", (e) => {
-  e.preventDefault();  
+  e.preventDefault();
   state.generateSpisokFunc()
-  
 })
 
 
@@ -290,6 +289,7 @@ let width = document.getElementById("width").addEventListener("click",(e) => {
   console.log(state.returnArr())
 })
 
+
 let prima = document.getElementById('prima').addEventListener("click", (e) => {
   e.preventDefault()
   state.generateArrayInScales()
@@ -339,4 +339,14 @@ let prima = document.getElementById('prima').addEventListener("click", (e) => {
       }
     }
   }
+let dostizhimost = document.getElementById("dostizhimost").addEventListener("click", (e) => {
+  e.preventDefault();
+  let cmej = state.pullSetka()
+  for(let i=0;i<cmej.length;i++) {
+    for(let j=0;j<cmej[i].length;j++) {
+      if (i == j)
+      cmej[i][j] = 1 
+    }
+  } 
+  console.log(cmej)
 })

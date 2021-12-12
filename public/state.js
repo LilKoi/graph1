@@ -75,10 +75,10 @@ import createEdge from './createEdge.js'
         }
       
         for(let i =0; i < arraySetka.length;i++) {
-          // console.log(`Для вершины ${i+1}:`) потом включить, мне надоело лишнее 
+           // console.log(`Для вершины ${i+1}:`) потом включить, мне надоело лишнее 
           for(let j =0; j< arraySetka.length;j++) {
             if(list[i][j] != -1) {
-              // console.log(list[i][j] + 1) потом включить, мне надоело лишнее 
+              // console.log(list[i][j] + 1)  потом включить, мне надоело лишнее 
             }
           }
         }
