@@ -288,12 +288,30 @@ let width = document.getElementById("width").addEventListener("click",(e) => {
 
 let dostizhimost = document.getElementById("dostizhimost").addEventListener("click", (e) => {
   e.preventDefault();
-  let cmej = state.pullSetka()
-  for(let i=0;i<cmej.length;i++) {
-    for(let j=0;j<cmej[i].length;j++) {
-      if (i == j)
-      cmej[i][j] = 1 
+  let iznachalnaya = [[0,1,1,0,],[0,0,0,0],[0,1,0,1],
+  [0,0,1,0]]
+  let zalupa = [[0,1,1,0,],[0,0,0,0],[0,1,0,1],
+  [0,0,1,0]]
+  let arr = []
+  // for(let count = 1; count <= iznachalnaya.length;count++) {
+    zalupa = MultiplyMatrix(iznachalnaya, zalupa)
+    arr.push(zalupa)
+  // }
+  
+  function MultiplyMatrix(A,B)
+{
+    let n  = A[0].length
+    let C = new Array(n).fill(new Array(n).fill(0))
+    for(let i = 0; i < n; i++)
+    {
+      for(let j = 0; j < n; j++)
+      {
+        for(let k = 0; k < n; k++){
+          C[i][j] = (Boolean(C[i][j]) || (Boolean(A[i][k]) && Boolean(B[k][j])))
+        }
     }
-  } 
-  console.log(cmej)
+}
+    return C;
+}
+  console.log(arr)
 })
