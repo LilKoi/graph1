@@ -46,6 +46,10 @@ let graph = document.getElementById('create-graph').addEventListener('click', (e
   console.log(stateArr)
   stateArr.nodes.forEach((e) => {
     delete e.used
+    delete e.number
+  })
+  stateArr.edges.forEach((e) => {
+    delete e.scales
   })
   console.log(stateArr)
   const graph = new sigma({
@@ -268,7 +272,6 @@ let Metric = document.getElementById("Metric").addEventListener("click", (e) => 
         }
       })
     })
-    console.log(2)
   }
 })
 
@@ -285,4 +288,55 @@ let width = document.getElementById("width").addEventListener("click",(e) => {
   state.generateStateArray()
   widthModule.start('1')
   console.log(state.returnArr())
+})
+
+let prima = document.getElementById('prima').addEventListener("click", (e) => {
+  e.preventDefault()
+  state.generateArrayInScales()
+  console.log(state.returnArr())
+  let edges = state.returnArr().edges
+  next(1)
+  function next(id) {
+    let min = null;
+    let edge = null;
+    state.returnArr().nodes.find((e) => {
+      if(e.id == id) {
+        e.used = false;
+        min = null;
+        edge = null;
+        state.returnArr().edges.find((e1) => {
+          if(e.id == e1.source) {
+            if(Number(e1.scales) < min || min == null) {
+              min = Number(e1.scales)
+              edge = e1
+            }
+          }
+        })
+      }
+    })
+    if(edge != null) {
+      let egest = state.returnArr().edges.filter((e1, index) => {
+          if(e1.source == edge.source) {
+            console.log(e1)
+            console.log(edge)
+            if(!((edge.target == e1.target) && (edge.source == e1.source) || ((edge.target == e1.source) &&(edge.source == e1.target)))) {
+              return false
+            }
+
+          } 
+          return true
+      })
+      state.updateEdges(egest)
+      next(edge.target)
+    } else {
+      let find = state.returnArr().nodes.find((e) => {
+        if (e.used) {
+          return e;
+        }
+      })
+      if (typeof find !== " undefined") {
+        next(find.id)
+      }
+    }
+  }
 })
