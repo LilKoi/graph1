@@ -374,9 +374,6 @@ let dostizhimost = document.getElementById("dostizhimost").addEventListener("cli
       }
     console.log(a)
 })
-  } 
-  console.log(cmej)
-})
 
 let dijkstra = document.getElementById("dijkstra").addEventListener("click", (e) => {
   e.preventDefault()
