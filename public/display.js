@@ -288,30 +288,35 @@ let width = document.getElementById("width").addEventListener("click",(e) => {
 
 let dostizhimost = document.getElementById("dostizhimost").addEventListener("click", (e) => {
   e.preventDefault();
-  let iznachalnaya = [[0,1,1,0,],[0,0,0,0],[0,1,0,1],
-  [0,0,1,0]]
-  let zalupa = [[0,1,1,0,],[0,0,0,0],[0,1,0,1],
-  [0,0,1,0]]
-  let arr = []
-  // for(let count = 1; count <= iznachalnaya.length;count++) {
-    zalupa = MultiplyMatrix(iznachalnaya, zalupa)
-    arr.push(zalupa)
-  // }
-  
-  function MultiplyMatrix(A,B)
-{
-    let n  = A[0].length
-    let C = new Array(n).fill(new Array(n).fill(0))
-    for(let i = 0; i < n; i++)
-    {
-      for(let j = 0; j < n; j++)
-      {
-        for(let k = 0; k < n; k++){
-          C[i][j] = (Boolean(C[i][j]) || (Boolean(A[i][k]) && Boolean(B[k][j])))
-        }
+  let a = state.pullSetka()
+    let b =  state.pullSetka()
+    let n  = a.length 
+    let arr = []
+    for (let count = 0; count < a.length; count++){
+      arr.push(b)
+      b = multiply(a,b)
     }
-}
-    return C;
-}
-  console.log(arr)
+      function multiply (a, b) {
+
+        let c = [] 
+        for(let i = 0;i<a.length;i++) { 
+          c[i] = [] 
+          for(let j = 0;j<a.length;j++) { 
+            c[i][j] = 0 
+          } 
+        }
+        for(let i = 0; i < n; i++) 
+        for(let j = 0; j < n; j++) 
+        for(let k = 0; k < n; k++) 
+        c[i][j] = c[i][j] | (a[i][k] & b[k][j])
+        return c
+      }
+      for (let i = 1; i < arr.length-1; i++){
+        for (let j = 0; j < arr.length; j++){
+          for (let k = 0; k < arr.length; k++){
+            a[j][k] = arr[i][j][k] | a[j][k]
+          }
+        }
+      }
+    console.log(a)
 })
