@@ -342,12 +342,38 @@ let prima = document.getElementById('prima').addEventListener("click", (e) => {
 })
 let dostizhimost = document.getElementById("dostizhimost").addEventListener("click", (e) => {
   e.preventDefault();
-  let cmej = state.pullSetka()
-  for(let i=0;i<cmej.length;i++) {
-    for(let j=0;j<cmej[i].length;j++) {
-      if (i == j)
-      cmej[i][j] = 1 
+  let a = state.pullSetka()
+    let b =  state.pullSetka()
+    let n  = a.length 
+    let arr = []
+    for (let count = 0; count < a.length; count++){
+      arr.push(b)
+      b = multiply(a,b)
     }
+      function multiply (a, b) {
+
+        let c = [] 
+        for(let i = 0;i<a.length;i++) { 
+          c[i] = [] 
+          for(let j = 0;j<a.length;j++) { 
+            c[i][j] = 0 
+          } 
+        }
+        for(let i = 0; i < n; i++) 
+        for(let j = 0; j < n; j++) 
+        for(let k = 0; k < n; k++) 
+        c[i][j] = c[i][j] | (a[i][k] & b[k][j])
+        return c
+      }
+      for (let i = 1; i < arr.length-1; i++){
+        for (let j = 0; j < arr.length; j++){
+          for (let k = 0; k < arr.length; k++){
+            a[j][k] = arr[i][j][k] | a[j][k]
+          }
+        }
+      }
+    console.log(a)
+})
   } 
   console.log(cmej)
 })
