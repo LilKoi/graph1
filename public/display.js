@@ -107,42 +107,40 @@ let generateSpisok = document.getElementById("createSpisok").addEventListener ("
 let createMatrixIncidency = document.getElementById("createMatrixIncidency").addEventListener("click", (e) => {
   e.preventDefault()
   let arr = state.pullSetka()
-  let array = [];
-  for(let i = 0;i<arr.length;i++) {
-    for(let j = 0;j<arr.length;j++) {
-      if(arr[i][j] > 0) {
-        let tmp = new Array(arr.length);
+  let array = []
+  for(let i=0;i<arr.length;i++) {
+    for(let j=0;j<arr.length;j++) {
+      if(Number(arr[i][j]) > 0) {
+        let tmp = new Array(arr.length).fill(0)
         tmp[i] = tmp[j] = 1;
-        array.push(tmp)
+        array.push(tmp);
       }
     }
   }
 
-  for(let i = 0;i<array.length;i++) {
-    for(let j = i + 1;j<array.length;j++) {
-      if(array[i] == array[j]) {
-        array.splice(j,1)
-      }
-    }
-  }
-
-  let array1 = new Array(array.length)
-  for(let i = 0;i<array.length;i++) {
-    for(let j = 0;j<array.length;j++) {
-      if(typeof array[i][j] == "undefined") {
-        array[i][j] = 0;
-      }
-    }
-  }
-  console.log(array)
-  console.log(array.length)
-  for(let i = 0; i <array.length;i++) {
+  for (let i=0; i < array.length; i++)
+	{
+		for (let j = i + 1; j < array.length; j++)
+		{
+      let a = array[i];
+      let b = array[j];
+      let is_same = a.every(function(element, index) {
+        return element == b[index]; 
+    });
+			if (is_same)
+			{
+				array.splice(j,1);
+			}
+		}
+	}
+  let array1 = new Array(array[0].length);
+  for(let i=0;i<array[0].length;i++) {
     array1[i] = new Array(array.length)
-    for(let j = 0;array.length;j++) {
-      array1[i][j] = array[j][i]
+    for(let j=0;j<array.length;j++) {
+      array1[i][j] = array[j][i] 
     }
   }
-  console.log(array1)
+  console.log(array1);
 })
 
 let diagram = document.getElementById("createDiagMatrix").addEventListener("click",(e)=> {
@@ -251,28 +249,6 @@ let isEller = document.getElementById("isEller").addEventListener("click", (e) =
   console.log(isEller)
 })
 
-let Metric = document.getElementById("Metric").addEventListener("click", (e) => {
-  e.preventDefault()
-  let cmej = state.pullSetka()
-  let count = new Array(cmej.length).fill(0)
-  cmej.forEach((e,index) => {
-    e.forEach((e2, index2) => {
-      let dead = [];
-      console.log(`для точки-${index}`)
-      next(e2,dead)
-    })
-  })
-  function next(element,dead) {
-    cmej.forEach((e,index) => {
-      e.forEach((e2, index2) => {
-        if((e2 == 1) & (!dead.includes(index2))) {
-          dead.push(index2)
-          next(e2,dead)
-        }
-      })
-    })
-  }
-})
 
 let depth = document.getElementById("depth").addEventListener("click", (e) => {
   e.preventDefault();
