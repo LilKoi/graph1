@@ -373,3 +373,66 @@ let dijkstra = document.getElementById("dijkstra").addEventListener("click", (e)
   return distance;
 }
 })
+
+let kraskala = document.getElementById("kraskala").addEventListener("click",(e) => {
+  e.preventDefault()
+  let task = state.pullSetka();
+  let v_weights = [];
+  let empty_v = [];
+  for(let i = 0;i<task.length;i++) {
+    for(let j=i;j<task[i].length;j++) {
+      if(Number(task[i][j]) != 0) {
+        let obj = 
+        {
+          "first":task[i][j],
+          "second":{
+            "first":i,
+            "second":j
+          } 
+        }
+        v_weights.push(obj)
+      } 
+    }
+  }
+  v_weights.sort((a,b) => {
+    if(a.first > b.first) {
+      return 1
+    }
+    if(a.first < b.first) {
+      return -1
+    }
+    return 0
+  })
+  while(v_weights.length > 0) {
+    let obj = {
+      "first":v_weights[0].second.first,
+      "second":v_weights[0].second.second
+    }
+    empty_v.push(obj)
+    let Matrix = new Array(task.length);
+    for(let i=0;i<task.length;i++) {
+      Matrix[i] = new Array(task.length).fill(0)
+    }
+    empty_v.forEach(element => {
+      Matrix[element.first][element.second] = 1
+      Matrix[element.second][element.first] = 1
+    })
+    let pr = new Array(Matrix.length).fill(false)
+    for(let i=0;i< Matrix.length;i++) {
+      if(!pr[i]) {
+        pr = obxod_v_glubiny(i,Matrix,pr)
+      }
+    }
+    v_weights.shift()
+  }
+  console.log(empty_v)
+  function obxod_v_glubiny(v,task,rp) {
+    rp[v] = true
+    for(let u=0;u<task.length;u++) {
+      if((task[v][u]) && (!rp[u])) {
+        rp = obxod_v_glubiny(u,task,rp)
+      }
+    }
+    return rp;
+  }
+})
