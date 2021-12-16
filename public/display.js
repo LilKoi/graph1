@@ -426,6 +426,28 @@ let kraskala = document.getElementById("kraskala").addEventListener("click",(e) 
     v_weights.shift()
   }
   console.log(empty_v)
+  empty_v.forEach(element => {
+    const findFirst = state.returnArr().nodes.find((element1) =>{
+      if(element.first == element1.id){
+        return element1
+      }
+    })
+    if(typeof findFirst === "undefined") {
+      createNode(element.first)
+    }
+    const findSecond = state.returnArr().nodes.find((element1) =>{
+      if(element.second == element1.id){
+        return element1
+      }
+    })
+    if(typeof findSecond === "undefined") {
+      createNode(element.second)
+    }
+  })
+  empty_v.forEach(element => {
+    createEdge(element.first,element.second)
+  })
+  console.log(state.returnArr())
   function obxod_v_glubiny(v,task,rp) {
     rp[v] = true
     for(let u=0;u<task.length;u++) {
