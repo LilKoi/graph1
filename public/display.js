@@ -178,12 +178,16 @@ let dirac = document.getElementById("dirac").addEventListener("click", (e) => {
       }
     })
   })
-  let isDirac = true;
-  count.forEach((e)=> {
-    if(e < cmej.length) {
-      isDirac = false;
+  let isDirac = count.find((e) => {
+    if(e >= cmej.length / 2) {
+      return true;
     }
   })
+  if(isDirac > 0) {
+    isDirac = true
+  } else {
+    isDirac = false;
+  }
   console.log(isDirac)
 })
 
@@ -208,7 +212,7 @@ let Ore = document.getElementById("ore").addEventListener("click", (e) => {
       }
     })
   })
-  
+  console.log(isOre)
 })
 
 let Posha = document.getElementById("posha").addEventListener("click", (e) => {
@@ -217,8 +221,8 @@ let Posha = document.getElementById("posha").addEventListener("click", (e) => {
   let isPoshe = false
   for (let x=1;x< (cmej.length - 1) / 2;x++) {
     let fx = 0
-    for(let i=0;i<n;i++) {
-      if(arr[i] <= x) {
+    for(let i=0;i<(cmej.length - 1) / 2;i++) {
+      if(cmej[i] <= x) {
         fx++
       }
     }
