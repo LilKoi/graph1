@@ -68,10 +68,10 @@ let matrix = document.getElementById("create-list").addEventListener("click", (e
     listArray[e.id] = new Array()
     state.returnArr().nodes.forEach((e2,index2) => {
           let have = false
-          listArray[e.id].push(check(e,e2))
+          listArray[e.id].push(check.check(e,e2))
     })
   })
-  // console.log(listArray)
+  console.log(listArray)
 })
 
 let generateCetka = document.getElementById("createCetka").addEventListener("click", (e)=> {
@@ -360,6 +360,16 @@ let dijkstra = document.getElementById("dijkstra").addEventListener("click", (e)
   let cmej = state.pullSetka()
   Dijkstra(cmej)
   function Dijkstra(matrix, start = 0) {
+    for(let i=0;i<matrix.length;i++) {
+      for(let j=0;j<matrix.length;j++) {
+        if(matrix[i][j] == 0) {
+          matrix[i][j] = Infinity
+        }
+        if(matrix[i][j] != Infinity) {
+          matrix[i][j] = Number(matrix[i][j])
+        }
+      }
+    }
     const rows = matrix.length,
     cols = matrix[0].length;
     const distance = new Array(rows).fill(Infinity);
@@ -371,9 +381,9 @@ let dijkstra = document.getElementById("dijkstra").addEventListener("click", (e)
             distance[j] = matrix[i][j] + distance[i];
         }
        }
-       console.log(distance);
       }
-  }
+    }
+    console.log(distance);
   return distance;
 }
 })
