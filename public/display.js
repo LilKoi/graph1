@@ -472,3 +472,64 @@ let kraskala = document.getElementById("kraskala").addEventListener("click",(e) 
     return rp;
   }
 })
+let dif = document.getElementById("dif").addEventListener("click",e => {
+  e.preventDefault()
+  let array = state.pullSetka()
+  let graph = new Array(array.length)
+  for(let i=0;i<array.length;i++) {
+    graph[i] = []
+  } 
+  for(let i=0;i<array.length - 1;i++) {
+    for(let j= i + 1 ;j<array.length;j++) {
+    if(array[i][j] == 1) {
+      graph[i].push(j)
+      graph[j].push(i)
+    }
+  }
+  }  
+  
+})
+
+let dvud = document.getElementById("dvud").addEventListener("click",e => {
+
+  e.preventDefault()
+  let array = state.pullSetka()
+  let graph = new Array(array.length)
+  for(let i=0;i<array.length;i++) {
+    graph[i] = []
+  } 
+  for(let i=0;i<array.length - 1;i++) {
+    for(let j= i + 1 ;j<array.length;j++) {
+    if(array[i][j] == 1) {
+      graph[i].push(j)
+      graph[j].push(i)
+    }
+  }
+  }  
+  let possible = true
+  let n = graph.length
+  let visited = new Array(n).fill(0)
+  for (let i=0;i<n;i++) {
+    if(visited[i]==0) 
+        {
+            dfs(i,1); 
+        }
+  }
+    console.log(possible ? "да" : "нет")
+    function dfs(v,c) {
+      visited[v]=c; 
+    for(let j=0;j<graph[v].length;j++)
+    {
+        if(visited[graph[v][j]]==0) 
+        {
+            let new_colour = (c==1) ? 2 :1;
+            
+            dfs(graph[v][j],new_colour); 
+        }
+        if(visited[graph[v][j]]==c)
+        {
+            possible=false; 
+        }
+    }
+    }
+})
