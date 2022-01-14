@@ -103,6 +103,43 @@ let generateSpisok = document.getElementById("createSpisok").addEventListener ("
   state.generateSpisokFunc()
 })
 
+function createMatrixIncidencyFunction() {
+  let arr = state.pullSetka()
+  let array = []
+  for(let i=0;i<arr.length;i++) {
+    for(let j=0;j<arr.length;j++) {
+      if(Number(arr[i][j]) > 0) {
+        let tmp = new Array(arr.length).fill(0)
+        tmp[i] = tmp[j] = 1;
+        array.push(tmp);
+      }
+    }
+  }
+
+  for (let i=0; i < array.length; i++)
+	{
+		for (let j = i + 1; j < array.length; j++)
+		{
+      let a = array[i];
+      let b = array[j];
+      let is_same = a.every(function(element, index) {
+        return element == b[index]; 
+    });
+			if (is_same)
+			{
+				array.splice(j,1);
+			}
+		}
+	}
+  let array1 = new Array(array[0].length);
+  for(let i=0;i<array[0].length;i++) {
+    array1[i] = new Array(array.length)
+    for(let j=0;j<array.length;j++) {
+      array1[i][j] = array[j][i] 
+    }
+  }
+  return array1
+}
 
 let createMatrixIncidency = document.getElementById("createMatrixIncidency").addEventListener("click", (e) => {
   e.preventDefault()
@@ -355,6 +392,40 @@ let dostizhimost = document.getElementById("dostizhimost").addEventListener("cli
     console.log(a)
 })
 
+function dostFunc() {
+  let a = state.pullSetka()
+    let b =  state.pullSetka()
+    let n  = a.length 
+    let arr = []
+    for (let count = 0; count < a.length; count++){
+      arr.push(b)
+      b = multiply(a,b)
+    }
+      function multiply (a, b) {
+
+        let c = [] 
+        for(let i = 0;i<a.length;i++) { 
+          c[i] = [] 
+          for(let j = 0;j<a.length;j++) { 
+            c[i][j] = 0 
+          } 
+        }
+        for(let i = 0; i < n; i++) 
+        for(let j = 0; j < n; j++) 
+        for(let k = 0; k < n; k++) 
+        c[i][j] = c[i][j] | (a[i][k] & b[k][j])
+        return c
+      }
+      for (let i = 1; i < arr.length-1; i++){
+        for (let j = 0; j < arr.length; j++){
+          for (let k = 0; k < arr.length; k++){
+            a[j][k] = arr[i][j][k] | a[j][k]
+          }
+        }
+      }
+    return a
+}
+
 let dijkstra = document.getElementById("dijkstra").addEventListener("click", (e) => {
   e.preventDefault()
   let cmej = state.pullSetka()
@@ -474,20 +545,107 @@ let kraskala = document.getElementById("kraskala").addEventListener("click",(e) 
 })
 let dif = document.getElementById("dif").addEventListener("click",e => {
   e.preventDefault()
-  let array = state.pullSetka()
-  let graph = new Array(array.length)
-  for(let i=0;i<array.length;i++) {
-    graph[i] = []
-  } 
-  for(let i=0;i<array.length - 1;i++) {
-    for(let j= i + 1 ;j<array.length;j++) {
-    if(array[i][j] == 1) {
-      graph[i].push(j)
-      graph[j].push(i)
+  let list = [
+    [0,1,1,0],
+    [0,0,1,0],
+    [0,0,1,0],
+    [1,0,0,1],
+  ]
+  let max = Number.MIN_SAFE_INTEGER
+  let ready = new Array(list.length)
+  let ready2 = new Array(list.length)
+  for(let index=1;index<=list.length;index++){
+    deep(index,ready,list)
+  }
+  deep2(list.length,ready,ready2,list)
+  for(let i = 0;i<ready.length;i++) {
+    for(let j = 0;j<ready[i].length;j++) {
+      let sum = ready[i][j].length - ready2[i][j].length
+        if(sum > max) {
+          max = sum
+        }
     }
   }
-  }  
-  
+  console.log(ready)
+  console.log(ready2)
+  console.log(max)
+  function deep2(number,ready,ready2,list) {
+    for (let index = 0; index < ready.length; index++) {
+      ready2[index] = new Array(ready[index].length)
+      for(let j=0;j<ready[index].length;j++) {
+        ready2[index][j] = new Array()
+      }
+    }
+    for (let i = 0; i < ready.length; i++) {
+      for (let j = 0; j < ready[i].length; j++) {
+        for(let k=0;k < ready[i][j].length;k++) {
+          let index = ready[i][j][k]
+          for(let m=0;m<list[index].length;m++) {
+            if(list[index][m] == 1) {
+              let find = ready2[i][j].find(element => {
+                if(element == m) {
+                  return element
+                }
+              })
+              if(typeof find == "undefined") {
+                ready2[i][j].push(m)
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+  function deep(number, ready, list) {
+    let par = (factorial(list.length) / (factorial(number) *factorial(list.length - number))) 
+    ready[number-1] = new Array(par)      
+    for (let i = 0; i < par; i++) {
+      ready[number-1][i] = []
+    }
+    let count = 1;
+      while(count != par+1) {
+        let newNumber = Math.floor(Math.random() * list.length)
+        let findNumber;
+        
+          // console.log(ready[number-1][count-1])
+          findNumber = ready[number-1][count-1].find(element => {
+            if(element == newNumber) {
+              return true
+            }
+          }) 
+        if(typeof findNumber == "undefined") {
+          ready[number-1][count-1].push(newNumber)
+          if(ready[number-1][count-1].length == number) {
+            let findArray = ready[number-1][count-1]
+              if(isEqual(findArray,ready[number-1],count-1)) {
+                ready[number-1][count-1] = []
+              }else{
+            count++
+          }
+        }
+      }
+    }
+  }
+  function isEqual(arrayFind, array,index){
+    let isEqual = false
+    for (let i = 0; i < array.length; i++) {
+      if(!isEqual & (index != i)) {
+        let result = arrayFind.every(element => array[i].includes(element))
+        if(result) {
+          isEqual = true
+        }
+      }
+    }
+    return isEqual
+  }
+    function factorial(number) {
+      let fac = 1;
+      for (let index = 1; index <= number; index++) {
+        fac *= index
+      }
+      return fac
+    }
 })
 
 let dvud = document.getElementById("dvud").addEventListener("click",e => {
@@ -515,6 +673,7 @@ let dvud = document.getElementById("dvud").addEventListener("click",e => {
             dfs(i,1); 
         }
   }
+  console.log(visited)
     console.log(possible ? "да" : "нет")
     function dfs(v,c) {
       visited[v]=c; 
@@ -532,4 +691,169 @@ let dvud = document.getElementById("dvud").addEventListener("click",e => {
         }
     }
     }
+})
+
+let bio = document.getElementById("bio").addEventListener("click", e => {
+  e.preventDefault()
+  let incidency = dostFunc();
+  console.log("Матрица Инцедентности")
+  console.log(incidency)
+  for(let i=0;i<incidency.length;i++) {
+    for(let j=0;j<incidency[i].length;j++) {
+      if(incidency[i][j] == 1) {
+        console.log(`{${i},${j}}`)
+      }
+    }
+  }
+})
+
+let levita = document.getElementById("levita").addEventListener("click", e => {
+  e.preventDefault()
+  let array = state.pullSetka()
+  let g = new Array(array.length)
+  
+  for(let i=0;i<g.length;i++)
+  g[i] = []
+  
+  array.forEach((element, index) => {
+    element.forEach((element2, index2) => {
+      if(array[index][index2]) {
+        g[index].push([index2,array[index][index2]])
+      }
+    })
+  })
+  const numberOfVertices  = g.length
+  const startVertex       = 0
+  const finishVertex      = 3
+
+  let d = new Array(numberOfVertices).fill(Infinity);
+  d[startVertex] = 0
+  let state = new Array(numberOfVertices).fill(2)
+  state[startVertex] = 1
+  let q = []
+  q.push(startVertex)
+  let p = new Array(numberOfVertices).fill(-1)
+
+  while(q.length != 0)
+  {
+    let vertex = q[0]
+    q.splice(0,1)
+    state[vertex] = 0
+    for(let i = 0; i < g[vertex].length;i++) {
+      let to = g[vertex][i][0]
+      let length = g[vertex][i][1]
+      if(d[to] > d[vertex] + length) {
+        d[to] = d[vertex] + length
+        if(state[to] == 2) {
+          q.push(to)
+        } else {
+          if (state[to] == 0) {
+            q.unshift(to)
+          }
+        }
+        p[to] = vertex
+        state[to] = 1
+      }
+    }
+  }
+
+  if(p[finishVertex] == -1) {
+    console.log("No solution")
+  } else {
+    let path = []
+    for(let vertex = finishVertex; vertex != -1; vertex = p[vertex])
+      path.push(vertex)
+    path.reverse()
+    for(let i=0; i<path.length;i++)
+    console.log(path[i])
+  }
+
+  // console.log(list)
+})
+
+let par = document.getElementById("par").addEventListener("click", e => {
+  e.preventDefault()
+  let array = state.pullSetka()
+  const V = array.length; 
+  
+  function bfs(rGraph, s, t, parent)
+  {
+      
+      let visited = new Array(V);
+      for(let i = 0; i < V; ++i)
+          visited[i] = false;
+
+      let queue  = [];
+      queue.push(s);
+      visited[s] = true;
+      parent[s] = -1;
+
+      while (queue.length != 0)
+      {
+          let u = queue.shift();
+
+          for(let v = 0; v < V; v++) 
+          {
+              if (visited[v] == false && 
+                  rGraph[u][v] > 0)
+              {
+                  if (v == t) 
+                  {
+                      parent[v] = u;
+                      return true;
+                  }
+                  queue.push(v);
+                  parent[v] = u;
+                  visited[v] = true;
+              }
+          }
+      }
+
+      return false;
+  }
+
+  function fordFulkerson(graph, s, t)
+  {
+      let u, v;
+  
+      let rGraph = new Array(V);
+
+      for(u = 0; u < V; u++)
+      {
+          rGraph[u] = new Array(V);
+          for(v = 0; v < V; v++)
+              rGraph[u][v] = graph[u][v];
+      }
+      
+      let parent = new Array(V);
+      
+      let max_flow = 0; 
+
+      while (bfs(rGraph, s, t, parent))
+      {
+          
+          let path_flow = Number.MAX_VALUE;
+          for(v = t; v != s; v = parent[v]) 
+          {
+              u = parent[v];
+              path_flow = Math.min(path_flow, 
+                                  rGraph[u][v]);
+          }
+
+          for(v = t; v != s; v = parent[v]) 
+          {
+              u = parent[v];
+              rGraph[u][v] -= path_flow;
+              rGraph[v][u] += path_flow;
+          }
+
+          max_flow += path_flow;
+      }
+
+      return max_flow;
+  }
+
+  console.log("The maximum possible flow is " + 
+                fordFulkerson(array, 0, V-1));
+
 })
